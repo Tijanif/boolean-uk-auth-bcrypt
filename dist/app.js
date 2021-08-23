@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const router_1 = __importDefault(require("./resources/users/router"));
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 // App initialisation
@@ -13,6 +14,7 @@ app.use(logger('dev'));
 app.use(express_1.default.json());
 app.use(cookieParser());
 // Routes
+app.use('/users', router_1.default);
 app.all('*', (req, res) => {
     res.json({ msg: 'I am up and runnig!' });
 });

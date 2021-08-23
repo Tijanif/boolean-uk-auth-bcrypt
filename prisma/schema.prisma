@@ -10,3 +10,11 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model User {
+  id       Int     @id @default(autoincrement())
+  // Username has to be unique for auth purposes
+  username String  @unique
+  password String
+  bio      String?
+}
