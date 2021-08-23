@@ -1,5 +1,5 @@
 import express from 'express';
-
+import { Request, Response } from 'express';
 import usersRouter from './resources/users/router';
 
 const cookieParser = require('cookie-parser');
@@ -17,7 +17,7 @@ app.use(cookieParser());
 
 app.use('/users', usersRouter);
 
-app.all('*', (req, res) => {
+app.all('*', (req: Request, res: Response) => {
   res.json({ msg: 'I am up and runnig!' });
 });
 
