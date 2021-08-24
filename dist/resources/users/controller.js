@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createAUser = exports.getAllUsers = void 0;
+const authgenerator_1 = require("../../utilities/authgenerator");
 const services_1 = __importDefault(require("./services"));
 const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const allUsers = yield services_1.default.findMany();
@@ -23,7 +24,12 @@ const createAUser = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const newUser = req.body;
     // New user created with a hashed password
     const createdUser = yield services_1.default.create(newUser);
-    res.json({ data: createdUser });
+    const token = authgenerator_1.createToken({
+        id: createdUser.id,
+        username: createdUser.username,
+    });
+    res.cookie('token', token, { httpOnly: true });
+    res.json({ data: { username: createdUser.username } });
 });
 exports.createAUser = createAUser;
 //# sourceMappingURL=controller.js.map

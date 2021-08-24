@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { createToken } from '../../utilities/authgenerator';
 import user from './services';
 
 export const getAllUsers = async (req: Request, res: Response) => {
@@ -13,5 +14,12 @@ export const createAUser = async (req: Request, res: Response) => {
   // New user created with a hashed password
   const createdUser = await user.create(newUser);
 
-  res.json({ data: createdUser });
+  const token = createToken({
+    id: createdUser.id,
+    username: createdUser.username,
+  });
+
+  res.cookie('token', token, { httpOnly: true });
+
+  res.json({ data: { username: createdUser.username } });
 };
