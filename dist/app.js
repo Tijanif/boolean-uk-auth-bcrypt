@@ -16,7 +16,7 @@ const app = express_1.default();
 app.use(logger('dev'));
 app.use(express_1.default.json());
 app.use(cookieParser());
-app.use(cors({ origin: 'http://localhost:3001', credentials: true }));
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 // Routes
 // login
 app.use(router_2.default);
