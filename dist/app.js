@@ -8,15 +8,19 @@ const router_1 = __importDefault(require("./resources/users/router"));
 const router_2 = __importDefault(require("./auth/router"));
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const loginAuth_1 = __importDefault(require("./middlewares/loginAuth"));
+const cors = require('cors');
 // App initialisation
 const app = express_1.default();
 // App MiddleWare
 app.use(logger('dev'));
 app.use(express_1.default.json());
 app.use(cookieParser());
+app.use(cors({ origin: 'http://localhost:3001', credentials: true }));
 // Routes
 // login
 app.use(router_2.default);
+app.use(loginAuth_1.default);
 app.use('/users', router_1.default);
 app.all('*', (req, res) => {
     res.json({ msg: 'I am up and runnig!' });
